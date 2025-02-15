@@ -11,10 +11,10 @@ npm install @crbroughton/unocss-token-system
 ## Usage
 
 ```typescript
-import { defineDesignSystem } from '@crbroughton/unocss-token-system'
+import { defineTokenSystem } from '@crbroughton/unocss-token-system'
 import { defineConfig } from 'unocss'
 
-const preset = defineDesignSystem({
+const preset = defineTokenSystem({
   name: 'my-design-system',
   spacing: {
     sm: '8px',
