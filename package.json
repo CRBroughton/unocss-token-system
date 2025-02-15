@@ -1,0 +1,44 @@
+{
+  "name": "@crbroughton/unocss-token-system",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "A UnoCSS token system utility",
+  "author": "Craig R Broughton",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/crbroughton/unocss-token-system.git"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "typecheck": "tsc --skipLibCheck --noEmit",
+    "build": "bun run typecheck && npx tsc --project tsconfig.json",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "changeset": "npx changeset",
+    "changeset:status": "npx changeset status --verbose",
+    "changeset:version": "npx changeset version",
+    "publish": "bun run build && npm publish --access=public"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0",
+    "unocss": "^65.5.0"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "2.14.0",
+    "@types/bun": "latest",
+    "eslint": "9.0.0"
+  }
+}
