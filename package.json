@@ -27,9 +27,9 @@
     "build": "bun run typecheck && npx tsc --project tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "changeset": "npx changeset",
-    "changeset:status": "npx changeset status --verbose",
-    "changeset:version": "npx changeset version",
+    "changeset": "npx @changesets/cli",
+    "changeset:status": "npx @changesets/cli status --verbose",
+    "changeset:version": "npx @changesets/cli version",
     "publish": "bun run build && npm publish --access=public"
   },
   "peerDependencies": {
