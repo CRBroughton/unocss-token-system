@@ -407,12 +407,6 @@ export function defineTokenSystem(options: PresetOptions): Preset {
         rules.push([`bg-${colorName}`, { background: value }])
         rules.push([`text-${colorName}`, { color: value }])
       }
-      else {
-        Object.entries(value).forEach(([shade, shadeValue]) => {
-          rules.push([`bg-${colorName}-${shade}`, { background: shadeValue }])
-          rules.push([`text-${colorName}-${shade}`, { color: shadeValue }])
-        })
-      }
     })
   }
 
