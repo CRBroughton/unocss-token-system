@@ -32,12 +32,26 @@ const preset = defineTokenSystem({
     lg: '300px',
     full: '100%',
   },
-  colors: {
+colors: {
+    // Theme colors generate dynamic utilities that use CSS variables.
+    // The preset will create a preflight that injects CSS variables for the default
+    // theme (applied on :root) and additional themes using a corresponding class.
     primary: {
-      50: '#f8fafc',
-      900: '#0f172a',
+      themes: {
+        light: '#ffffff',
+        dark: '#111111',
+        forest: '#2f4f4f',
+        ocean: '#000080',
+      },
     },
-    text: 'black',
+    secondary: {
+      themes: {
+        light: '#334155',
+        dark: '#222222',
+        forest: '#2f4f4f',
+        ocean: '#000080',
+      },
+    },
   },
   allowArbitraryValues: true,
 })
