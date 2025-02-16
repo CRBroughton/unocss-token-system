@@ -25,14 +25,105 @@ export interface EffectsConfig {
 }
 
 export interface PresetOptions {
+  /** Name of the preset */
   name: string
+  /**
+   * Spacing tokens for margin, padding, and gap utilities
+   * @example
+   * spacing: {
+   *   sm: '8px',    // creates m-sm, p-sm, gap-sm
+   *   md: '16px',   // creates m-md, p-md, gap-md
+   * }
+   * Generates:
+   * - Margins: m-{token}, mt-{token}, mb-{token}, ml-{token}, mr-{token}, mx-{token}, my-{token}
+   * - Padding: p-{token}, pt-{token}, pb-{token}, pl-{token}, pr-{token}, px-{token}, py-{token}
+   * - Gap: gap-{token}, gap-x-{token}, gap-y-{token}
+   */
   spacing?: Record<string, TokenValue>
+  /**
+   * Border radius tokens
+   * @example
+   * rounded: {
+   *   sm: '4px', // creates rounded-sm
+   *   md: '8px', // creates rounded-md
+   * }
+   * Generates:
+   * - rounded-{token}
+   */
   rounded?: Record<string, TokenValue>
+  /**
+   * Size tokens for width and height utilities
+   * Note: 'full', 'w-screen', 'screen' and 'h-screen' are reserved
+   * @example
+   * sizes: {
+   *   sm: '100px',  // creates w-sm, h-sm
+   *   md: '200px',  // creates w-md, h-md
+   * }
+   * Generates:
+   * - w-{token}
+   * - h-{token}
+   */
   sizes?: Record<string, TokenValue>
+  /**
+   * Color tokens with theme support
+   * @example
+   * colors: {
+   *   primary: {
+   *     themes: {
+   *       light: '#ffffff',
+   *       dark: '#000000'
+   *     }
+   *   }
+   * }
+   * Generates theme-aware utilities:
+   * - bg-{color}
+   * - text-{color}
+   * - border-{color}
+   * - outline-{color}
+   */
   colors: Record<string, ThemeToken>
+  /**
+   * Border width tokens
+   * @example
+   * borderWidths: {
+   *   thin: '1px',    // creates border-thin
+   *   thick: '4px',   // creates border-thick
+   * }
+   * Generates:
+   * - border-{token}
+   * - border-t-{token}, border-r-{token}, border-b-{token}, border-l-{token}
+   * - outline-{token}
+   */
   borderWidths?: Record<string, TokenValue>
+  /**
+   * Typography configuration for font-related utilities
+   * @example
+   * typography: {
+   *   fonts: { sans: '"Inter", sans-serif' },    // creates font-sans
+   *   sizes: { base: '16px' },                   // creates text-base
+   *   weights: { bold: 700 },                    // creates font-bold
+   *   lineHeights: { normal: 1.5 },              // creates leading-normal
+   * }
+   */
   typography?: TypographyConfig
+  /**
+   * Effects configuration for shadows and opacity
+   * @example
+   * effects: {
+   *   shadows: { sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)' }, // creates shadow-sm
+   *   opacity: { 50: 0.5 },                             // creates opacity-50
+   * }
+   */
   effects?: EffectsConfig
+  /**
+   * Enable arbitrary values using square bracket notation
+   * @example allowArbitraryValues: true
+   * Enables:
+   * - p-[20px]
+   * - m-[30px]
+   * - w-[500px]
+   * etc.
+   */
   allowArbitraryValues?: boolean
 }
 
