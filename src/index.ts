@@ -437,26 +437,14 @@ export function defineTokenSystem(options: PresetOptions): Preset {
   }
   if (options.colors) {
     Object.entries(options.colors).forEach(([colorName, value]) => {
-      if (typeof value === 'string') {
+      if (typeof value === 'string')
         rules.push([`border-${colorName}`, { 'border-color': value }])
-      }
-      else {
-        Object.entries(value).forEach(([shade, shadeValue]) => {
-          rules.push([`border-${colorName}-${shade}`, { 'border-color': shadeValue }])
-        })
-      }
     })
   }
   if (options.colors) {
     Object.entries(options.colors).forEach(([colorName, value]) => {
-      if (typeof value === 'string') {
+      if (typeof value === 'string')
         rules.push([`outline-${colorName}`, { 'outline-color': value }])
-      }
-      else {
-        Object.entries(value).forEach(([shade, shadeValue]) => {
-          rules.push([`outline-${colorName}-${shade}`, { 'outline-color': shadeValue }])
-        })
-      }
     })
   }
 
