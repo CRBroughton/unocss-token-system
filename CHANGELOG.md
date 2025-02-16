@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.1.0
+
+### Minor Changes
+
+- d01124e: add support for font family, size, weights, line height, alignment, box shadow, opacity, disabled and checked states
+
 ## 1.0.1
 
 ### Patch Changes

@@ -6,6 +6,18 @@ export interface ThemeToken {
   themes: Record<string, string>
 }
 
+export interface TypographyConfig {
+  fonts?: Record<string, string>
+  sizes?: Record<string, string>
+  weights?: Record<string, number>
+  lineHeights?: Record<string, string | number>
+}
+
+export interface EffectsConfig {
+  shadows?: Record<string, string>
+  opacity?: Record<string, number>
+}
+
 export interface PresetOptions {
   name: string
   spacing?: Record<string, TokenValue>
@@ -13,6 +25,8 @@ export interface PresetOptions {
   sizes?: Record<string, TokenValue>
   colors: Record<string, ThemeToken>
   borderWidths?: Record<string, TokenValue>
+  typography?: TypographyConfig
+  effects?: EffectsConfig
   allowArbitraryValues?: boolean
 }
 
@@ -501,6 +515,59 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     )
   }
 
+  if (options.typography) {
+  // Font Family
+    if (options.typography.fonts) {
+      Object.entries(options.typography.fonts).forEach(([name, value]) => {
+        rules.push([`font-${name}`, { 'font-family': value }])
+      })
+    }
+
+    // Font Size
+    if (options.typography.sizes) {
+      Object.entries(options.typography.sizes).forEach(([size, value]) => {
+        rules.push([`text-${size}`, { 'font-size': value }])
+      })
+    }
+
+    // Font Weight
+    if (options.typography.weights) {
+      Object.entries(options.typography.weights).forEach(([weight, value]) => {
+        rules.push([`font-${weight}`, { 'font-weight': value }])
+      })
+    }
+
+    // Line Height
+    if (options.typography.lineHeights) {
+      Object.entries(options.typography.lineHeights).forEach(([height, value]) => {
+        rules.push([`leading-${height}`, { 'line-height': value }])
+      })
+    }
+  }
+
+  if (options.effects) {
+    // Box Shadow
+    if (options.effects.shadows) {
+      Object.entries(options.effects.shadows).forEach(([name, value]) => {
+        rules.push([`shadow-${name}`, { 'box-shadow': value }])
+      })
+    }
+    // Opacity
+    if (options.effects.opacity) {
+      Object.entries(options.effects.opacity).forEach(([name, value]) => {
+        rules.push([`opacity-${name}`, { opacity: value }])
+      })
+    }
+  }
+
+  const textAlignRules: Rule[] = [
+    ['text-left', { 'text-align': 'left' }],
+    ['text-center', { 'text-align': 'center' }],
+    ['text-right', { 'text-align': 'right' }],
+    ['text-justify', { 'text-align': 'justify' }],
+  ]
+  rules.push(...textAlignRules)
+
   const colorRules = generateDynamicRules(options)
   rules.push(...colorRules)
   const preflight: Preflight = {
@@ -551,6 +618,22 @@ export function defineTokenSystem(options: PresetOptions): Preset {
         return {
           matcher: matcher.slice(7),
           selector: s => `${s}:active`,
+        }
+      },
+      (matcher) => {
+        if (!matcher.startsWith('disabled:'))
+          return matcher
+        return {
+          matcher: matcher.slice(9),
+          selector: s => `${s}:disabled`,
+        }
+      },
+      (matcher) => {
+        if (!matcher.startsWith('checked:'))
+          return matcher
+        return {
+          matcher: matcher.slice(8),
+          selector: s => `${s}:checked`,
         }
       },
     ],

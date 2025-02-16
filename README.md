@@ -88,19 +88,19 @@ Here's a comparison table of Tailwind features and our current support status:
 | Outlines | Style | ✅ | Solid, dashed, dotted, none |
 | Sizing | Width | ✅ | Uses size tokens |
 | Sizing | Height | ✅ | Uses size tokens |
-| Effects | Box Shadow | ❌ | Not implemented yet |
-| Effects | Opacity | ❌ | Not implemented yet |
-| Typography | Font Family | ❌ | Not implemented yet |
-| Typography | Font Size | ❌ | Not implemented yet |
-| Typography | Font Weight | ❌ | Not implemented yet |
-| Typography | Line Height | ❌ | Not implemented yet |
-| Typography | Text Align | ❌ | Not implemented yet |
+| Typography | Font Family | ✅ | Uses font tokens |
+| Typography | Font Size | ✅ | Uses size tokens |
+| Typography | Font Weight | ✅ | Uses weight tokens |
+| Typography | Line Height | ✅ | Uses line height tokens |
+| Typography | Text Align | ✅ | Left, center, right, justify |
+| Effects | Box Shadow | ✅ | Uses shadow tokens |
+| Effects | Opacity | ✅ | Uses opacity tokens |
 | Transforms | Scale/Rotate/Translate | ❌ | Not implemented yet |
 | Transitions | Duration/Timing/Property | ❌ | Not implemented yet |
 | Interactivity | Cursor | ❌ | Not implemented yet |
 | Interactivity | User Select | ❌ | Not implemented yet |
 | State Variants | Hover/Focus/Active | ✅ | Supports grouped variants like hover:(bg-primary) |
-| State Variants | Disabled/Checked | ❌ | Not implemented yet |
+| State Variants | Disabled/Checked | ✅ | Supports disabled and checked states |
 | Responsive | Breakpoints | ❌ | Not implemented yet |
 | Theme Support | Multi-theme | ✅ | Supports arbitrary number of themes |
 | Arbitrary Values | Square Brackets | ✅ | Optional feature for all supported properties |
