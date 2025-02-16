@@ -25,7 +25,7 @@ export interface PresetOptions {
 function generateColorCSS(
   colors: Record<string, ThemeToken>,
   defaultTheme = 'light',
-): string {
+) {
   // Build an object mapping each theme to its CSS variables.
   const themes: Record<string, Record<string, string>> = {}
 
