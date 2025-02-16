@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.0.1
+
+### Patch Changes
+
+- 383f150: clean up documentation
+
 ## 1.0.0
 
 ### Major Changes
