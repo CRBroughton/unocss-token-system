@@ -1,16 +1,140 @@
-import type { Preset, Rule } from 'unocss'
+import type { Preflight, Preset, Rule } from 'unocss'
 
 export type TokenValue = string | number
-export type ColorValue = string | Record<string, string>
+
+export interface ThemeToken {
+  themes: Record<string, string>
+}
 
 export interface PresetOptions {
   name: string
   spacing?: Record<string, TokenValue>
   rounded?: Record<string, TokenValue>
   sizes?: Record<string, TokenValue>
-  colors?: Record<string, ColorValue>
+  colors: Record<string, ThemeToken>
   borderWidths?: Record<string, TokenValue>
   allowArbitraryValues?: boolean
+}
+
+/**
+ * Generate CSS for color tokens.
+ *
+ * For the default theme (assumed as 'light'), the CSS variables are defined on :root.
+ * For every additional theme, a theme class is generated (e.g. .theme-dark).
+ */
+function generateColorCSS(
+  colors: Record<string, ThemeToken>,
+  defaultTheme = 'light',
+): string {
+  // Build an object mapping each theme to its CSS variables.
+  const themes: Record<string, Record<string, string>> = {}
+
+  // Initialize the default theme.
+  themes[defaultTheme] = {}
+
+  // Iterate over each token.
+  for (const tokenName in colors) {
+    const token = colors[tokenName]
+
+    if (!token)
+      return
+
+    // Set default theme value on :root.
+    themes[defaultTheme][`--color-${tokenName}`]
+      = token.themes[defaultTheme] || ''
+
+    // Process any other themes defined for the token.
+    for (const theme in token.themes) {
+      if (theme === defaultTheme)
+        continue
+      if (!themes[theme])
+        themes[theme] = {}
+      themes[theme][`--color-${tokenName}`] = token.themes[theme]
+    }
+  }
+
+  // Generate the CSS string.
+  let css = ''
+
+  // Default theme on :root.
+  css += `:root {\n`
+  for (const varName in themes[defaultTheme])
+    css += `  ${varName}: ${themes[defaultTheme][varName]};\n`
+
+  css += `}\n`
+
+  // Other themes as classes.
+  for (const theme in themes) {
+    if (theme === defaultTheme)
+      continue
+    css += `.${theme} {\n`
+    for (const varName in themes[theme])
+      css += `  ${varName}: ${themes[theme][varName]};\n`
+
+    css += `}\n`
+  }
+
+  return css
+}
+
+/**
+ * Generate UnoCSS dynamic rules for color tokens.
+ *
+ * This registers rules for classes like:
+ * - bg-<token> → { background-color: var(--color-<token>) }
+ * - text-<token> → { color: var(--color-<token>) }
+ * - border-<token> → { border-color: var(--color-<token>) }
+ */
+function generateDynamicRules(config: PresetOptions): Rule[] {
+  const rules: Rule[] = []
+
+  // Background color rule.
+  rules.push([
+    /^bg-([\w-]+)$/,
+    ([, tokenName]) => {
+      if (!tokenName)
+        return
+
+      if (tokenName in config.colors)
+        return { 'background-color': `var(--color-${tokenName})` }
+    },
+    {
+      // Suggest tokens prefixed with "bg-"
+      autocomplete: Object.keys(config.colors).map(token => `bg-${token}`),
+    },
+  ])
+
+  // Text color rule.
+  rules.push([
+    /^text-([\w-]+)$/,
+    ([, tokenName]) => {
+      if (!tokenName)
+        return
+      if (tokenName in config.colors)
+        return { color: `var(--color-${tokenName})` }
+    },
+    {
+      // Suggest tokens prefixed with "text-"
+      autocomplete: Object.keys(config.colors).map(token => `text-${token}`),
+    },
+  ])
+
+  // Border color rule.
+  rules.push([
+    /^border-([\w-]+)$/,
+    ([, tokenName]) => {
+      if (!tokenName)
+        return
+      if (tokenName in config.colors)
+        return { 'border-color': `var(--color-${tokenName})` }
+    },
+    {
+      // Suggest tokens prefixed with "border-"
+      autocomplete: Object.keys(config.colors).map(token => `border-${token}`),
+    },
+  ])
+
+  return rules
 }
 
 /**
@@ -395,9 +519,16 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     )
   }
 
+  const colorRules = generateDynamicRules(options)
+  rules.push(...colorRules)
+  const preflight: Preflight = {
+    getCSS: () => generateColorCSS(options.colors),
+  }
+
   return {
     name: options.name,
     rules,
+    preflights: [preflight],
     shortcuts: [
       [/^focus:\(([\s\S]+)\)$/, ([, body]) => {
         if (!body)
