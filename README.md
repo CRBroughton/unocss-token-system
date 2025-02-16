@@ -1,6 +1,6 @@
 # UnoCSS Token System
 
-A simple and flexible token system for UnoCSS, allowing you to define and manage your design tokens while providing utility classes for spacing, colors, sizes, and more.
+A simple and flexible token system for UnoCSS, allowing you to define and manage your design tokens while providing utility classes for spacing, colours, sizes, and more.
 
 ## Installation
 
@@ -33,7 +33,7 @@ const preset = defineTokenSystem({
     full: '100%',
   },
 colors: {
-    // Theme colors generate dynamic utilities that use CSS variables.
+    // Theme colours generate dynamic utilities that use CSS variables.
     // The preset will create a preflight that injects CSS variables for the default
     // theme (applied on :root) and additional themes using a corresponding class.
     primary: {
@@ -105,8 +105,6 @@ Here's a comparison table of Tailwind features and our current support status:
 | Theme Support | Multi-theme | ✅ | Supports arbitrary number of themes |
 | Arbitrary Values | Square Brackets | ✅ | Optional feature for all supported properties |
 
-Would you like me to add this comparison table to the README?
-
 ## Options
 
 ```typescript
@@ -115,7 +113,7 @@ interface PresetOptions {
   spacing?: Record<string, string | number>;          // Spacing tokens
   rounded?: Record<string, string | number>;          // Border radius tokens
   sizes?: Record<string, string | number>;            // Width/height tokens
-  colors?: Record<string, string | Record<string, string>>; // Color tokens
+  colors?: Record<string, Record<string, string>>; // Color tokens
   allowArbitraryValues?: boolean;                     // Enable arbitrary values
 }
 ```
