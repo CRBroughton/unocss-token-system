@@ -9,6 +9,7 @@ export interface PresetOptions {
   rounded?: Record<string, TokenValue>
   sizes?: Record<string, TokenValue>
   colors?: Record<string, ColorValue>
+  borderWidths?: Record<string, TokenValue>
   allowArbitraryValues?: boolean
 }
 
@@ -43,6 +44,29 @@ export interface PresetOptions {
  * ```
  */
 export function defineTokenSystem(options: PresetOptions): Preset {
+  const positionRules: Rule[] = [
+    // Position
+    ['static', { position: 'static' }],
+    ['fixed', { position: 'fixed' }],
+    ['absolute', { position: 'absolute' }],
+    ['relative', { position: 'relative' }],
+    ['sticky', { position: 'sticky' }],
+
+    // Inset shortcuts
+    ['inset-0', { top: '0', right: '0', bottom: '0', left: '0' }],
+    ['inset-auto', { top: 'auto', right: 'auto', bottom: 'auto', left: 'auto' }],
+
+    // Zero and auto values
+    ['top-0', { top: '0' }],
+    ['right-0', { right: '0' }],
+    ['bottom-0', { bottom: '0' }],
+    ['left-0', { left: '0' }],
+    ['top-auto', { top: 'auto' }],
+    ['right-auto', { right: 'auto' }],
+    ['bottom-auto', { bottom: 'auto' }],
+    ['left-auto', { left: 'auto' }],
+  ]
+
   const flexRules: Rule[] = [
     // Display
     ['flex', { display: 'flex' }],
@@ -100,9 +124,110 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     ['shrink-0', { 'flex-shrink': '0' }],
   ]
 
-  const rules: Rule[] = [...flexRules]
+  const gridRules: Rule[] = [
+    // Grid Container
+    ['grid', { display: 'grid' }],
+    ['inline-grid', { display: 'inline-grid' }],
+
+    // Grid Flow
+    ['grid-flow-row', { 'grid-auto-flow': 'row' }],
+    ['grid-flow-col', { 'grid-auto-flow': 'column' }],
+    ['grid-flow-row-dense', { 'grid-auto-flow': 'row dense' }],
+    ['grid-flow-col-dense', { 'grid-auto-flow': 'column dense' }],
+
+    // Auto Columns
+    ['auto-cols-auto', { 'grid-auto-columns': 'auto' }],
+    ['auto-cols-min', { 'grid-auto-columns': 'min-content' }],
+    ['auto-cols-max', { 'grid-auto-columns': 'max-content' }],
+    ['auto-cols-fr', { 'grid-auto-columns': 'minmax(0, 1fr)' }],
+
+    // Auto Rows
+    ['auto-rows-auto', { 'grid-auto-rows': 'auto' }],
+    ['auto-rows-min', { 'grid-auto-rows': 'min-content' }],
+    ['auto-rows-max', { 'grid-auto-rows': 'max-content' }],
+    ['auto-rows-fr', { 'grid-auto-rows': 'minmax(0, 1fr)' }],
+
+    // Grid Template Columns
+    ['grid-cols-none', { 'grid-template-columns': 'none' }],
+    ['grid-cols-1', { 'grid-template-columns': 'repeat(1, minmax(0, 1fr))' }],
+    ['grid-cols-2', { 'grid-template-columns': 'repeat(2, minmax(0, 1fr))' }],
+    ['grid-cols-3', { 'grid-template-columns': 'repeat(3, minmax(0, 1fr))' }],
+    ['grid-cols-4', { 'grid-template-columns': 'repeat(4, minmax(0, 1fr))' }],
+    ['grid-cols-5', { 'grid-template-columns': 'repeat(5, minmax(0, 1fr))' }],
+    ['grid-cols-6', { 'grid-template-columns': 'repeat(6, minmax(0, 1fr))' }],
+    ['grid-cols-12', { 'grid-template-columns': 'repeat(12, minmax(0, 1fr))' }],
+
+    // Grid Template Rows
+    ['grid-rows-none', { 'grid-template-rows': 'none' }],
+    ['grid-rows-1', { 'grid-template-rows': 'repeat(1, minmax(0, 1fr))' }],
+    ['grid-rows-2', { 'grid-template-rows': 'repeat(2, minmax(0, 1fr))' }],
+    ['grid-rows-3', { 'grid-template-rows': 'repeat(3, minmax(0, 1fr))' }],
+    ['grid-rows-4', { 'grid-template-rows': 'repeat(4, minmax(0, 1fr))' }],
+    ['grid-rows-5', { 'grid-template-rows': 'repeat(5, minmax(0, 1fr))' }],
+    ['grid-rows-6', { 'grid-template-rows': 'repeat(6, minmax(0, 1fr))' }],
+
+    // Grid Column Span
+    ['col-auto', { 'grid-column': 'auto' }],
+    ['col-span-1', { 'grid-column': 'span 1 / span 1' }],
+    ['col-span-2', { 'grid-column': 'span 2 / span 2' }],
+    ['col-span-3', { 'grid-column': 'span 3 / span 3' }],
+    ['col-span-4', { 'grid-column': 'span 4 / span 4' }],
+    ['col-span-5', { 'grid-column': 'span 5 / span 5' }],
+    ['col-span-6', { 'grid-column': 'span 6 / span 6' }],
+    ['col-span-12', { 'grid-column': 'span 12 / span 12' }],
+    ['col-span-full', { 'grid-column': '1 / -1' }],
+
+    // Grid Row Span
+    ['row-auto', { 'grid-row': 'auto' }],
+    ['row-span-1', { 'grid-row': 'span 1 / span 1' }],
+    ['row-span-2', { 'grid-row': 'span 2 / span 2' }],
+    ['row-span-3', { 'grid-row': 'span 3 / span 3' }],
+    ['row-span-4', { 'grid-row': 'span 4 / span 4' }],
+    ['row-span-5', { 'grid-row': 'span 5 / span 5' }],
+    ['row-span-6', { 'grid-row': 'span 6 / span 6' }],
+    ['row-span-full', { 'grid-row': '1 / -1' }],
+
+    // Grid Column Start/End
+    ['col-start-1', { 'grid-column-start': '1' }],
+    ['col-start-2', { 'grid-column-start': '2' }],
+    ['col-start-3', { 'grid-column-start': '3' }],
+    ['col-start-4', { 'grid-column-start': '4' }],
+    ['col-start-auto', { 'grid-column-start': 'auto' }],
+    ['col-end-1', { 'grid-column-end': '1' }],
+    ['col-end-2', { 'grid-column-end': '2' }],
+    ['col-end-3', { 'grid-column-end': '3' }],
+    ['col-end-4', { 'grid-column-end': '4' }],
+    ['col-end-auto', { 'grid-column-end': 'auto' }],
+
+    // Grid Row Start/End
+    ['row-start-1', { 'grid-row-start': '1' }],
+    ['row-start-2', { 'grid-row-start': '2' }],
+    ['row-start-3', { 'grid-row-start': '3' }],
+    ['row-start-4', { 'grid-row-start': '4' }],
+    ['row-start-auto', { 'grid-row-start': 'auto' }],
+    ['row-end-1', { 'grid-row-end': '1' }],
+    ['row-end-2', { 'grid-row-end': '2' }],
+    ['row-end-3', { 'grid-row-end': '3' }],
+    ['row-end-4', { 'grid-row-end': '4' }],
+    ['row-end-auto', { 'grid-row-end': 'auto' }],
+  ]
+
+  const rules: Rule[] = [...positionRules, ...flexRules, ...gridRules]
 
   if (options.spacing) {
+    Object.entries(options.spacing).forEach(([key, value]) => {
+      rules.push(
+        // Individual positions
+        [`top-${key}`, { top: `${value}` }],
+        [`right-${key}`, { right: `${value}` }],
+        [`bottom-${key}`, { bottom: `${value}` }],
+        [`left-${key}`, { left: `${value}` }],
+
+        // Inset (all sides)
+        [`inset-${key}`, { top: `${value}`, right: `${value}`, bottom: `${value}`, left: `${value}` }],
+      )
+    })
+
     rules.push(
       ['m-auto', { margin: 'auto' }],
       ['mt-auto', { 'margin-top': 'auto' }],
@@ -131,6 +256,11 @@ export function defineTokenSystem(options: PresetOptions): Preset {
       rules.push([`pr-${key}`, { 'padding-right': `${value}` }])
       rules.push([`px-${key}`, { 'padding-left': `${value}`, 'padding-right': `${value}` }])
       rules.push([`py-${key}`, { 'padding-top': `${value}`, 'padding-bottom': `${value}` }])
+
+      // Gap utilities using the same spacing tokens
+      rules.push([`gap-${key}`, { gap: `${value}` }])
+      rules.push([`gap-x-${key}`, { 'column-gap': `${value}` }])
+      rules.push([`gap-y-${key}`, { 'row-gap': `${value}` }])
     })
   }
 
@@ -162,7 +292,64 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     })
   }
 
+  if (options.borderWidths) {
+    Object.entries(options.borderWidths).forEach(([key, value]) => {
+      // All borders
+      rules.push([`border-${key}`, { 'border-width': `${value}` }])
+      rules.push([`border-t-${key}`, { 'border-top-width': `${value}` }])
+      rules.push([`border-r-${key}`, { 'border-right-width': `${value}` }])
+      rules.push([`border-b-${key}`, { 'border-bottom-width': `${value}` }])
+      rules.push([`border-l-${key}`, { 'border-left-width': `${value}` }])
+      rules.push(
+        ['border-solid', { 'border-style': 'solid' }],
+        ['border-dashed', { 'border-style': 'dashed' }],
+        ['border-dotted', { 'border-style': 'dotted' }],
+        ['border-none', { 'border-style': 'none' }],
+      )
+
+      // Outlines
+      rules.push([`outline-${key}`, { 'outline-width': `${value}` }])
+      rules.push(
+        ['outline-none', { outline: 'none' }],
+        ['outline-solid', { 'outline-style': 'solid' }],
+        ['outline-dashed', { 'outline-style': 'dashed' }],
+        ['outline-dotted', { 'outline-style': 'dotted' }],
+      )
+    })
+  }
+  if (options.colors) {
+    Object.entries(options.colors).forEach(([colorName, value]) => {
+      if (typeof value === 'string') {
+        rules.push([`border-${colorName}`, { 'border-color': value }])
+      }
+      else {
+        Object.entries(value).forEach(([shade, shadeValue]) => {
+          rules.push([`border-${colorName}-${shade}`, { 'border-color': shadeValue }])
+        })
+      }
+    })
+  }
+  if (options.colors) {
+    Object.entries(options.colors).forEach(([colorName, value]) => {
+      if (typeof value === 'string') {
+        rules.push([`outline-${colorName}`, { 'outline-color': value }])
+      }
+      else {
+        Object.entries(value).forEach(([shade, shadeValue]) => {
+          rules.push([`outline-${colorName}-${shade}`, { 'outline-color': shadeValue }])
+        })
+      }
+    })
+  }
+
   if (options.allowArbitraryValues) {
+    rules.push(
+      [/^top-\[(.*)\]$/, ([, value]) => ({ top: value })],
+      [/^right-\[(.*)\]$/, ([, value]) => ({ right: value })],
+      [/^bottom-\[(.*)\]$/, ([, value]) => ({ bottom: value })],
+      [/^left-\[(.*)\]$/, ([, value]) => ({ left: value })],
+      [/^inset-\[(.*)\]$/, ([, value]) => ({ top: value, right: value, bottom: value, left: value })],
+    )
     rules.push(
       // Spacing arbitrary values
       [/^m-\[(.*)\]$/, ([, value]) => ({ margin: value })],
@@ -187,6 +374,24 @@ export function defineTokenSystem(options: PresetOptions): Preset {
 
       // Border radius arbitrary values
       [/^rounded-\[(.*)\]$/, ([, value]) => ({ 'border-radius': value })],
+
+      // Grid arbitrary values
+      [/^grid-cols-\[(.*)\]$/, ([, value]) => ({ 'grid-template-columns': value })],
+      [/^grid-rows-\[(.*)\]$/, ([, value]) => ({ 'grid-template-rows': value })],
+      [/^col-start-\[(.*)\]$/, ([, value]) => ({ 'grid-column-start': value })],
+      [/^col-end-\[(.*)\]$/, ([, value]) => ({ 'grid-column-end': value })],
+      [/^row-start-\[(.*)\]$/, ([, value]) => ({ 'grid-row-start': value })],
+      [/^row-end-\[(.*)\]$/, ([, value]) => ({ 'grid-row-end': value })],
+
+      // Border width arbitrary values
+      [/^border-\[(.*)\]$/, ([, value]) => ({ 'border-width': value })],
+      [/^border-t-\[(.*)\]$/, ([, value]) => ({ 'border-top-width': value })],
+      [/^border-r-\[(.*)\]$/, ([, value]) => ({ 'border-right-width': value })],
+      [/^border-b-\[(.*)\]$/, ([, value]) => ({ 'border-bottom-width': value })],
+      [/^border-l-\[(.*)\]$/, ([, value]) => ({ 'border-left-width': value })],
+
+      // Outline arbitrary values
+      [/^outline-\[(.*)\]$/, ([, value]) => ({ 'outline-width': value })],
     )
   }
 

@@ -52,43 +52,46 @@ export default defineConfig({
 
 ## Features
 
-### Spacing Utilities
-- Margins: `m-{size}`, `mt-{size}`, `mb-{size}`, `ml-{size}`, `mr-{size}`, `mx-{size}`, `my-{size}`
-- Paddings: `p-{size}`, `pt-{size}`, `pb-{size}`, `pl-{size}`, `pr-{size}`, `px-{size}`, `py-{size}`
-- Auto margins: `m-auto`, `mt-auto`, `mx-auto`, etc.
+Here's a comparison table of Tailwind features and our current support status:
 
-### Border Radius
-- `rounded-{size}`
+| Category | Feature | Supported | Notes |
+|----------|---------|-----------|--------|
+| Layout | Flexbox | ✅ | Full flexbox support including display, direction, wrap, justify, align |
+| Layout | Grid | ✅ | Complete grid support with templates, auto-flow, spans |
+| Layout | Position | ✅ | Static, fixed, absolute, relative, sticky |
+| Layout | Top/Right/Bottom/Left | ✅ | Uses spacing tokens |
+| Spacing | Margin | ✅ | All directions, auto values, uses spacing tokens |
+| Spacing | Padding | ✅ | All directions, uses spacing tokens |
+| Spacing | Gap | ✅ | Uses spacing tokens for grid/flex gap |
+| Colors | Background | ✅ | Multi-theme support |
+| Colors | Text | ✅ | Multi-theme support |
+| Borders | Width | ✅ | Uses border tokens |
+| Borders | Color | ✅ | Multi-theme support |
+| Borders | Style | ✅ | Solid, dashed, dotted, none |
+| Borders | Radius | ✅ | Uses rounded tokens |
+| Outlines | Width | ✅ | Uses border tokens |
+| Outlines | Color | ✅ | Multi-theme support |
+| Outlines | Style | ✅ | Solid, dashed, dotted, none |
+| Sizing | Width | ✅ | Uses size tokens |
+| Sizing | Height | ✅ | Uses size tokens |
+| Effects | Box Shadow | ❌ | Not implemented yet |
+| Effects | Opacity | ❌ | Not implemented yet |
+| Typography | Font Family | ❌ | Not implemented yet |
+| Typography | Font Size | ❌ | Not implemented yet |
+| Typography | Font Weight | ❌ | Not implemented yet |
+| Typography | Line Height | ❌ | Not implemented yet |
+| Typography | Text Align | ❌ | Not implemented yet |
+| Transforms | Scale/Rotate/Translate | ❌ | Not implemented yet |
+| Transitions | Duration/Timing/Property | ❌ | Not implemented yet |
+| Interactivity | Cursor | ❌ | Not implemented yet |
+| Interactivity | User Select | ❌ | Not implemented yet |
+| State Variants | Hover/Focus/Active | ✅ | Supports grouped variants like hover:(bg-primary) |
+| State Variants | Disabled/Checked | ❌ | Not implemented yet |
+| Responsive | Breakpoints | ❌ | Not implemented yet |
+| Theme Support | Multi-theme | ✅ | Supports arbitrary number of themes |
+| Arbitrary Values | Square Brackets | ✅ | Optional feature for all supported properties |
 
-### Sizing
-- Width: `w-{size}`
-- Height: `h-{size}`
-
-### Colors
-- Background: `bg-{color}` or `bg-{color}-{shade}`
-- Text: `text-{color}` or `text-{color}-{shade}`
-
-### Flexbox Utilities
-- Display: `flex`, `inline-flex`
-- Direction: `flex-row`, `flex-col`, `flex-row-reverse`, `flex-col-reverse`
-- Wrap: `flex-wrap`, `flex-nowrap`, `flex-wrap-reverse`
-- Justify Content: `justify-start`, `justify-end`, `justify-center`, `justify-between`, `justify-around`, `justify-evenly`
-- Align Items: `items-start`, `items-end`, `items-center`, `items-baseline`, `items-stretch`
-- Align Self: `self-start`, `self-end`, `self-center`, `self-baseline`, `self-stretch`
-- Flex Properties: `flex-1`, `flex-auto`, `flex-initial`, `flex-none`, `grow`, `grow-0`, `shrink`, `shrink-0`
-
-### State Modifiers
-Group multiple utilities under state modifiers:
-- `hover:(bg-primary-50 rounded-md)`
-- `focus:(p-md m-lg)`
-- `active:(flex items-center)`
-
-### Arbitrary Values
-When `allowArbitraryValues` is enabled:
-- `p-[10px]`
-- `m-[2rem]`
-- `w-[50vw]`
-- `rounded-[4px]`
+Would you like me to add this comparison table to the README?
 
 ## Options
 
