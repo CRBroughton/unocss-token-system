@@ -5,6 +5,7 @@ import { createDefaultGridRules } from './grid'
 import { createSpacingRules } from './spacing'
 import { createRoundedRules } from './rounded'
 import { createDefaultSizesRules, createSizesRules } from './sizes'
+import { createDefaultInteractivityRules } from './interactivity'
 
 export type TokenValue = string | number
 
@@ -283,6 +284,7 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     ...createDefaultPositionRules(),
     ...createDefaultFlexRules(),
     ...createDefaultGridRules(),
+    ...createDefaultInteractivityRules(),
   ]
 
   if (options.spacing)
