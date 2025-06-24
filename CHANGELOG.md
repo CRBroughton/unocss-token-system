@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.3.0
+
+### Minor Changes
+
+- 7818e79: add support for w-min, w-max and w-fit
+
 ## 1.2.0
 
 ### Minor Changes
