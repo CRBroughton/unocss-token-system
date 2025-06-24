@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.2.0
+
+### Minor Changes
+
+- 6eea2cb: add support for cursor and select classes
+
 ## 1.1.0
 
 ### Minor Changes
