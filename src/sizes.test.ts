@@ -7,6 +7,9 @@ describe('sizes tests', () => {
 
     expect(result).toStrictEqual([
       ['w-full', { width: '100%' }],
+      ['w-fit', { width: 'fit-content' }],
+      ['w-min', { width: 'min-content' }],
+      ['w-max', { width: 'max-content' }],
       ['h-full', { height: '100%' }],
       ['w-screen', { width: '100vw' }],
       ['h-screen', { height: '100vh' }],
