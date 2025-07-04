@@ -6,6 +6,7 @@ import { createSpacingRules } from './spacing'
 import { createRoundedRules } from './rounded'
 import { createDefaultSizesRules, createSizesRules } from './sizes'
 import { createDefaultInteractivityRules } from './interactivity'
+import { createZIndexRules } from './zindex'
 
 export type TokenValue = string | number
 
@@ -314,6 +315,13 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     ...createDefaultGridRules(),
     ...createDefaultInteractivityRules(),
   ]
+
+  if (options.zindex) {
+    const numericZIndex = Object.fromEntries(
+      Object.entries(options.zindex).map(([key, value]) => [key, Number(value)]),
+    )
+    rules.push(...createZIndexRules(numericZIndex))
+  }
 
   if (options.spacing)
     rules.push(...createSpacingRules(options.spacing))

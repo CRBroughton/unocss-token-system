@@ -16,6 +16,11 @@ import { defineConfig } from 'unocss'
 
 const preset = defineTokenSystem({
   name: 'my-design-system',
+  zindex: {
+    10: 10,
+    20: 20,
+    '-20': '-20',
+  },
   spacing: {
     sm: '8px',
     md: '16px',
@@ -74,6 +79,7 @@ Here's a comparison table of Tailwind features and our current support status:
 | Layout | Grid | ✅ | Complete grid support with templates, auto-flow, spans |
 | Layout | Position | ✅ | Static, fixed, absolute, relative, sticky |
 | Layout | Top/Right/Bottom/Left | ✅ | Uses spacing tokens |
+| Layout | Z-index | ✅ | Uses zindex tokens |
 | Spacing | Margin | ✅ | All directions, auto values, uses spacing tokens |
 | Spacing | Padding | ✅ | All directions, uses spacing tokens |
 | Spacing | Gap | ✅ | Uses spacing tokens for grid/flex gap |
@@ -110,6 +116,7 @@ Here's a comparison table of Tailwind features and our current support status:
 ```typescript
 interface PresetOptions {
   name: string;                                        // Name of your design system
+  zindex: Record<string, string | number>;            // z-index tokens
   spacing?: Record<string, string | number>;          // Spacing tokens
   rounded?: Record<string, string | number>;          // Border radius tokens
   sizes?: Record<string, string | number>;            // Width/height tokens

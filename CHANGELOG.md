@@ -1,5 +1,15 @@
 # @crbroughton/unocss-token-system
 
+## 1.4.0
+
+### Minor Changes
+
+- add support for z-indexes
+
+### Patch Changes
+
+- 4ef6825: add missing docblocs
+
 ## 1.3.0
 
 ### Minor Changes
