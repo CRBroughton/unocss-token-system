@@ -7,6 +7,7 @@ import { createRoundedRules } from './rounded'
 import { createDefaultSizesRules, createSizesRules } from './sizes'
 import { createDefaultInteractivityRules } from './interactivity'
 import { createZIndexRules } from './zindex'
+import { createBlurRules } from './blur'
 
 export type TokenValue = string | number
 
@@ -327,6 +328,9 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     ...createDefaultGridRules(),
     ...createDefaultInteractivityRules(),
   ]
+
+  if (options.blur)
+    rules.push(...createBlurRules(options.blur))
 
   if (options.zindex) {
     const numericZIndex = Object.fromEntries(
