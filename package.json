@@ -27,7 +27,7 @@
     "build": "bun run typecheck && npx tsc --project tsconfig.json",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "changeset": "npx @changesets/cli",
+    "changeset": "pnpx @changesets/cli",
     "changeset:status": "npx @changesets/cli status --verbose",
     "changeset:version": "npx @changesets/cli version",
     "publish": "bun run build && npm publish --access=public"

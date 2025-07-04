@@ -13,6 +13,16 @@ export interface ThemeToken {
   themes: Record<string, string>
 }
 
+/**
+ * Typography configuration for font-related utilities
+ * @example
+ * typography: {
+ *   fonts: { sans: '"Inter", sans-serif' },    // creates font-sans
+ *   sizes: { base: '16px' },                   // creates text-base
+ *   weights: { bold: 700 },                    // creates font-bold
+ *   lineHeights: { normal: 1.5 },              // creates leading-normal
+ * }
+ */
 export interface TypographyConfig {
   fonts?: Record<string, string>
   sizes?: Record<string, string>
@@ -20,6 +30,14 @@ export interface TypographyConfig {
   lineHeights?: Record<string, string | number>
 }
 
+/**
+ * Effects configuration for shadows and opacity
+ * @example
+ * effects: {
+ *   shadows: { sm: '0 1px 2px 0 rgb(0 0 0 / 0.05)' }, // creates shadow-sm
+ *   opacity: { 50: 0.5 },                             // creates opacity-50
+ * }
+ */
 export interface EffectsConfig {
   shadows?: Record<string, string>
   opacity?: Record<string, number>
@@ -28,6 +46,16 @@ export interface EffectsConfig {
 export interface PresetOptions {
   /** Name of the preset */
   name: string
+  /**
+   * Z-indexing tokens
+   * @example
+   * indexes: {
+   *   10: 10,        // create z-10
+   *   20: 20,        // creates z-20
+   *   '-20: '-20',   // creates z-
+   * }
+   */
+  zindex?: Record<string, TokenValue>
   /**
    * Spacing tokens for margin, padding, and gap utilities
    * @example
