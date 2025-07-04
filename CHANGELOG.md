@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.5.0
+
+### Minor Changes
+
+- add support for blur
+
 ## 1.4.0
 
 ### Minor Changes

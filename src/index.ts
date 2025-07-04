@@ -113,6 +113,16 @@ export interface PresetOptions {
    */
   colors: Record<string, ThemeToken>
   /**
+   * blur tokens
+   * @example
+   * blur: {
+   *   sm: "8px",  // creates blur-sm
+   *   md: "10px", // creates blur-md
+   *   lg: "16px", // creates blur-lg
+   * }
+   */
+  blur: Record<string, TokenValue>
+  /**
    * Border width tokens
    * @example
    * borderWidths: {
@@ -277,11 +287,13 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
 
   return rules
 }
+// TODO - add the missing below params (docs)
 
 /**
  * Creates a UnoCSS preset with customizable tokens and utilities
  * @param {PresetOptions} options - Configuration options
  * @param {string} options.name - Name of the token system preset
+ * @param {Record<string, string | number>} [options.zindex] - Z-index tokens
  * @param {Record<string, string | number>} [options.spacing] - Spacing tokens for margin and padding utilities
  * @param {Record<string, string | number>} [options.rounded] - Border radius tokens
  * @param {Record<string, string | number>} [options.sizes] - Size tokens for width and height utilities
