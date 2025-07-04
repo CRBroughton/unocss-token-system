@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.5.1
+
+### Patch Changes
+
+- set blur to optional
+
 ## 1.5.0
 
 ### Minor Changes

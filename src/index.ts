@@ -121,7 +121,7 @@ export interface PresetOptions {
    *   lg: "16px", // creates blur-lg
    * }
    */
-  blur: Record<string, TokenValue>
+  blur?: Record<string, TokenValue>
   /**
    * Border width tokens
    * @example
