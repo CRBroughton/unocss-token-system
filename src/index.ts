@@ -247,8 +247,15 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
       if (!tokenName)
         return
 
-      if (tokenName in config.colors)
-        return { 'background-color': `var(--color-${tokenName})` }
+      if (tokenName in config.colors) {
+        const token = config.colors[tokenName]
+        const firstTheme = Object.keys(token.themes)[0]
+        const previewColor = token.themes[firstTheme]
+        
+        return { 
+          'background-color': `${previewColor} /* var(--color-${tokenName}) */`
+        }
+      }
     },
     {
       // Suggest tokens prefixed with "bg-"
@@ -262,8 +269,15 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
     ([, tokenName]) => {
       if (!tokenName)
         return
-      if (tokenName in config.colors)
-        return { color: `var(--color-${tokenName})` }
+      if (tokenName in config.colors) {
+        const token = config.colors[tokenName]
+        const firstTheme = Object.keys(token.themes)[0]
+        const previewColor = token.themes[firstTheme]
+        
+        return { 
+          color: `${previewColor} /* var(--color-${tokenName}) */`
+        }
+      }
     },
     {
       // Suggest tokens prefixed with "text-"
@@ -277,8 +291,15 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
     ([, tokenName]) => {
       if (!tokenName)
         return
-      if (tokenName in config.colors)
-        return { 'border-color': `var(--color-${tokenName})` }
+      if (tokenName in config.colors) {
+        const token = config.colors[tokenName]
+        const firstTheme = Object.keys(token.themes)[0]
+        const previewColor = token.themes[firstTheme]
+        
+        return { 
+          'border-color': `${previewColor} /* var(--color-${tokenName}) */`
+        }
+      }
     },
     {
       // Suggest tokens prefixed with "border-"

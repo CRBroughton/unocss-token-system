@@ -16,6 +16,7 @@ export default defineConfig({
     defineTokenSystem({
       name: 'token-system',
       allowArbitraryValues: true,
+      selectedPreviewTheme: 'light',
       spacing: {
         xss: '4px',
         xs: '8px',
