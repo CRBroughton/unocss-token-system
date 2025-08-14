@@ -1,5 +1,11 @@
 # @crbroughton/unocss-token-system
 
+## 1.6.0
+
+### Minor Changes
+
+- 476d77b: add colour preview on colour tokens
+
 ## 1.5.2
 
 ### Patch Changes
