@@ -1,8 +1,8 @@
 import type { Rule } from 'unocss'
 import type { TokenValue } from '.'
 
-export function createZIndexRules(indexes: Record<string, number>) {
-  const rules: Rule[] = []
+export function createZIndexRules(indexes: Record<string, number>): Rule<any>[] {
+  const rules: Rule<any>[] = []
 
   rules.push(
     ['z-auto', { 'z-index': 'auto' }],

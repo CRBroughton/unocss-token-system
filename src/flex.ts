@@ -1,7 +1,7 @@
 import type { Rule } from 'unocss'
 
-export function createDefaultFlexRules() {
-  const flexRules: Rule[] = [
+export function createDefaultFlexRules(): Rule<any>[] {
+  const flexRules: Rule<any>[] = [
     // Display
     ['flex', { display: 'flex' }],
     ['inline-flex', { display: 'inline-flex' }],

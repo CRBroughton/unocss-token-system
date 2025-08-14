@@ -1,7 +1,7 @@
 import type { Rule } from 'unocss'
 
-export function createDefaultGridRules() {
-  const gridRules: Rule[] = [
+export function createDefaultGridRules(): Rule<any>[] {
+  const gridRules: Rule<any>[] = [
     // Grid Container
     ['grid', { display: 'grid' }],
     ['inline-grid', { display: 'inline-grid' }],

@@ -1,7 +1,7 @@
 import type { Rule } from 'unocss'
 
-export function createDefaultPositionRules() {
-  const positionRules: Rule[] = [
+export function createDefaultPositionRules(): Rule<any>[] {
+  const positionRules: Rule<any>[] = [
     // Position
     ['static', { position: 'static' }],
     ['fixed', { position: 'fixed' }],

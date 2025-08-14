@@ -49,6 +49,12 @@ export interface PresetOptions {
   /** Name of the preset */
   name: string
   /**
+   * Theme to use for color previews in IDE
+   * If not specified, uses the first theme defined for each color token
+   * @example selectedPreviewTheme: 'light'
+   */
+  selectedPreviewTheme?: string
+  /**
    * Z-indexing tokens
    * @example
    * indexes: {
@@ -169,6 +175,18 @@ export interface PresetOptions {
 }
 
 /**
+ * Get the preview color for a token based on selectedPreviewTheme
+ */
+function getPreviewColor(token: ThemeToken, selectedPreviewTheme?: string): string {
+  if (selectedPreviewTheme && token.themes[selectedPreviewTheme])
+    return token.themes[selectedPreviewTheme]
+
+  // Fallback to first available theme
+  const firstTheme = Object.keys(token.themes)[0]
+  return token.themes[firstTheme]
+}
+
+/**
  * Generate CSS for color tokens.
  *
  * For the default theme (assumed as 'light'), the CSS variables are defined on :root.
@@ -237,8 +255,8 @@ function generateColorCSS(
  * - text-<token> → { color: var(--color-<token>) }
  * - border-<token> → { border-color: var(--color-<token>) }
  */
-function generateDynamicRules(config: PresetOptions): Rule[] {
-  const rules: Rule[] = []
+function generateDynamicRules(config: PresetOptions): Rule<any>[] {
+  const rules: Rule<any>[] = []
 
   // Background color rule.
   rules.push([
@@ -249,11 +267,10 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
 
       if (tokenName in config.colors) {
         const token = config.colors[tokenName]
-        const firstTheme = Object.keys(token.themes)[0]
-        const previewColor = token.themes[firstTheme]
-        
-        return { 
-          'background-color': `${previewColor} /* var(--color-${tokenName}) */`
+        const previewColor = getPreviewColor(token, config.selectedPreviewTheme)
+
+        return {
+          'background-color': `${previewColor} /* var(--color-${tokenName}) */`,
         }
       }
     },
@@ -271,11 +288,10 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
         return
       if (tokenName in config.colors) {
         const token = config.colors[tokenName]
-        const firstTheme = Object.keys(token.themes)[0]
-        const previewColor = token.themes[firstTheme]
-        
-        return { 
-          color: `${previewColor} /* var(--color-${tokenName}) */`
+        const previewColor = getPreviewColor(token, config.selectedPreviewTheme)
+
+        return {
+          color: `${previewColor} /* var(--color-${tokenName}) */`,
         }
       }
     },
@@ -293,11 +309,10 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
         return
       if (tokenName in config.colors) {
         const token = config.colors[tokenName]
-        const firstTheme = Object.keys(token.themes)[0]
-        const previewColor = token.themes[firstTheme]
-        
-        return { 
-          'border-color': `${previewColor} /* var(--color-${tokenName}) */`
+        const previewColor = getPreviewColor(token, config.selectedPreviewTheme)
+
+        return {
+          'border-color': `${previewColor} /* var(--color-${tokenName}) */`,
         }
       }
     },
@@ -342,8 +357,8 @@ function generateDynamicRules(config: PresetOptions): Rule[] {
  * })
  * ```
  */
-export function defineTokenSystem(options: PresetOptions): Preset {
-  const rules: Rule[] = [
+export function defineTokenSystem(options: PresetOptions): Preset<any> {
+  const rules: Rule<any>[] = [
     ...createDefaultPositionRules(),
     ...createDefaultFlexRules(),
     ...createDefaultGridRules(),
@@ -516,7 +531,7 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     }
   }
 
-  const textAlignRules: Rule[] = [
+  const textAlignRules: Rule<any>[] = [
     ['text-left', { 'text-align': 'left' }],
     ['text-center', { 'text-align': 'center' }],
     ['text-right', { 'text-align': 'right' }],

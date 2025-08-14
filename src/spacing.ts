@@ -1,8 +1,8 @@
 import type { Rule } from 'unocss'
 import type { TokenValue } from '.'
 
-export function createSpacingRules(spacing: Record<string, TokenValue>) {
-  const rules: Rule[] = []
+export function createSpacingRules(spacing: Record<string, TokenValue>): Rule<any>[] {
+  const rules: Rule<any>[] = []
 
   Object.entries(spacing).forEach(([key, value]) => {
     rules.push(

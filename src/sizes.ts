@@ -1,8 +1,8 @@
 import type { Rule } from 'unocss'
 import type { TokenValue } from '.'
 
-export function createDefaultSizesRules() {
-  const rules: Rule[] = []
+export function createDefaultSizesRules(): Rule<any>[] {
+  const rules: Rule<any>[] = []
   rules.push(
     ['w-full', { width: '100%' }],
     ['w-fit', { width: 'fit-content' }],
@@ -15,8 +15,8 @@ export function createDefaultSizesRules() {
   return rules
 }
 type ExcludedKeys = 'full' | 'w-screen' | 'h-screen' | 'screen'
-export function createSizesRules<T>(sizes: Omit<{ [K in keyof T]: TokenValue }, ExcludedKeys>) {
-  const rules: Rule[] = []
+export function createSizesRules<T>(sizes: Omit<{ [K in keyof T]: TokenValue }, ExcludedKeys>): Rule<any>[] {
+  const rules: Rule<any>[] = []
 
   Object.entries(sizes).forEach(([key, value]) => {
     if (key === 'full' || key === 'w-screen' || key === 'h-screen' || key === 'screen')

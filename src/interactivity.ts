@@ -1,7 +1,7 @@
 import type { Rule } from 'unocss'
 
-export function createDefaultInteractivityRules() {
-  const interactivityRules: Rule[] = [
+export function createDefaultInteractivityRules(): Rule<any>[] {
+  const interactivityRules: Rule<any>[] = [
     // Cursor utilities
     ['cursor-default', { cursor: 'default' }],
     ['cursor-pointer', { cursor: 'pointer' }],
