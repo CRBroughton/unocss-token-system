@@ -8,6 +8,7 @@ import { createDefaultSizesRules, createSizesRules } from './sizes'
 import { createDefaultInteractivityRules } from './interactivity'
 import { createZIndexRules } from './zindex'
 import { createBlurRules } from './blur'
+import { createDefaultWordBreakRules } from './wordBreak'
 
 export type TokenValue = string | number
 
@@ -327,6 +328,7 @@ export function defineTokenSystem(options: PresetOptions): Preset {
     ...createDefaultFlexRules(),
     ...createDefaultGridRules(),
     ...createDefaultInteractivityRules(),
+    ...createDefaultWordBreakRules(),
   ]
 
   if (options.blur)

@@ -1,5 +1,27 @@
 # @crbroughton/unocss-token-system
 
+## 2.0.0
+
+- revert inclusion of colour preview mode (broke toggling themes)
+
+## 1.7.1
+
+### Patch Changes
+
+- fix word-break classes
+
+## 1.7.0
+
+### Minor Changes
+
+- add support for word break rules
+
+## 1.6.0
+
+### Minor Changes
+
+- 476d77b: add colour preview on colour tokens
+
 ## 1.5.2
 
 ### Patch Changes
